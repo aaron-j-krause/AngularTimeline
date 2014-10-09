@@ -5,12 +5,21 @@ var app = angular.module('myapp', ['ngRoute']);
 //Timeline and Event add and remove functions. Timeline master Object
 app.service('TimelineService', function(){
 	var id = 1;
+	var evid = 1;
 	var timelines = {};
 
 	this.save = function(timeline){
-		timelines[timeline.name] = timeline;
-		timelines[timeline.name].type = "public";
-		timelines[timeline.name].ev = {};
+		timeline = {
+			type: "public",
+			ev: {},
+			id: id,
+			name: timeline.name,
+			color: timeline.color
+		}
+		timelines[timeline.id] = timeline;
+		id++;
+		//timelines[timeline.id].type = "public";
+		//timelines[timeline.id].ev = {};
 	}
 	this.list = function(){
 		return timelines;
@@ -22,11 +31,13 @@ app.service('TimelineService', function(){
 		}
 	}
 	this.addEvent = function(timeline){
-		timelines[timeline.name].ev[timeline.temp.name] = {
+		timelines[timeline.id].ev[evid] = {
 								name: timeline.temp.name,
 								start: timeline.temp.start,
-								end: timeline.temp.end
+								end: timeline.temp.end,
+								id: evid
 							}
+	evid++;
 	}
 	this.removeEvent = function(line, e){
 		//console.log(eventname);
@@ -69,7 +80,8 @@ app.controller('TimelineController', ['$scope', 'TimelineService', function($sco
 	}
 	this.log = function(){
 		console.log(this.lines);
-		console.log(this.vis);
+		//console.log(this.vis);
+		//console.log($scope.timelineCtrl.vis);
 	}
 
 	this.isVis = function(line){
