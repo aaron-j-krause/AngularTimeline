@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="timeline.css"></link>
+<script type="text/javascript" src = "bower_components/jquery/dist/jquery.js"></script>
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/angular-route/angular-route.js"></script>
+<script type="text/javascript" src = "myapp.js"></script>
+</head>
+<body ng-app = "myapp">
+<div ng-controller = "TimelineController as timelineCtrl">
+
+	<form ng-submit = "timelineCtrl.addTimeline()">
+		<input type = "text" id="tform" ng-model = "timelineCtrl.timeline.name"/>
+		<input type = "submit" value = "Submit"/>
+		<input type = "button" value = "Priv"ng-click="timelineCtrl.priv()"/>
+		<input type = "button" value = "Pub"  ng-click="timelineCtrl.pub()"/>
+		<input type = "button" value = "log" ng-click="timelineCtrl.log()" />
+	</form>
+
+
+
+	<div class="timeline" ng-repeat="line in timelineCtrl.lines |orderBy: line.type" style="background-color: {{line.color[0]}}" data-name="{{line.name}}" ng-show="timelineCtrl.isVis(line)">
+		<p>{{line.name}}<br/><span>{{line.type}}</span></p>
+		<div class="ev" style="left:{{event.start * 5}}%; width:{{(event.end - event.start) * 5}}%; background-color:{{line.color[1]}}" ng-repeat="event in line.ev" >
+			<p>{{event.name}}</p>
+			<form ng-submit="timelineCtrl.remove(line, event)">
+				<input type = "submit" value="delete">
+			</form>
+		</div>
+		<form name = "evform" id = "evform" ng-submit = "timelineCtrl.addEvent(line,name)">
+			<textarea id="evname" placeholder = "name" ng-model = "line.temp.name"></textarea>
+			<textarea id="evstart" placeholder ="start" ng-model="line.temp.start"></textarea>
+			<textarea id="evend" placeholder = "end" ng-model="line.temp.end"></textarea>
+			<input type ="radio" value = "private" ng-model = "line.type" name = "p"/>
+			<input type ="radio" value = "public" ng-model= "line.type"name = "p"/>
+			<input type = "submit" value = "Submit"/>
+		</form> 
+
+
+	</div>
+</div>
+
+
+</body>
+</html>

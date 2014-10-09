@@ -1,0 +1,54 @@
+body{
+	font-family: Helvetica;
+}
+
+.timeline {
+	width: 100%;
+	font-size: 25px;
+	border-radius: 10px;
+	height: 90px;
+	margin-bottom: 20px;
+	position:relative;
+}
+.timeline p{
+	margin-left: 25px;
+	float: left;
+	display: inline-block;
+}
+.timeline form textarea, .timeline form input{
+	display: inline;
+	float: right;
+	margin-right: 30px;
+}
+
+textarea{
+	font-size: 15px;
+	height:15px;
+	display: inline;
+}
+#evform{
+	width: 15%;
+	float:right;
+	margin-top: 5px;
+	display:inline;
+}
+
+
+#tform{
+	border: 1px dotted blue;
+}
+.ev{
+	position: absolute;
+	display: inline-block;
+	background-color: gray;
+	height: 95%;
+	border-radius: 15px;
+	margin-top: 2px;
+}
+.ev textarea, .ev form{
+	display: inline;
+
+}
+span{
+	font-size: 12px;
+}
