@@ -1,5 +1,8 @@
 var app = angular.module('myapp', ['ngRoute']);
 
+
+
+//Timeline and Event add and remove functions. Timeline master Object
 app.service('TimelineService', function(){
 	var id = 1;
 	var timelines = {};
@@ -32,7 +35,8 @@ app.service('TimelineService', function(){
 		//console.log(line);
 	}
 })
-app.controller('TimelineController', function($scope, TimelineService){
+
+app.controller('TimelineController', ['$scope', 'TimelineService', function($scope, TimelineService){
 	this.bgcolor = [['#ff3030','#CC2626'],['#32CD32','#238F23'],['#00F5FF','#00ABB2'],['#ffd700','#CCAC00']];
 	this.timeline = {};
 	this.vis = {
@@ -53,13 +57,9 @@ app.controller('TimelineController', function($scope, TimelineService){
 	}
 	this.addEvent = function(line, name, start, end){
 		console.log(line, name, start, end);
-		//console.log(line.ev.name.start);
 		TimelineService.addEvent(line);
-		//console.log(name);
 		line.temp = {};
-		//line.ev.name.start="";
-		//line.ev.name.end="";
-		//console.log(line.ev);
+
 		
 	}
 	this.remove = function(line, e){
@@ -71,17 +71,12 @@ app.controller('TimelineController', function($scope, TimelineService){
 		console.log(this.lines);
 		console.log(this.vis);
 	}
-	this.pub = function(){
-		this.vis.pub = !this.vis.pub;
-	}
-	this.priv = function(){
-		this.vis.priv = !this.vis.priv;
-	}
+
 	this.isVis = function(line){
 		if((line.type == "public" && this.vis.pub)||(line.type == "private" && this.vis.priv)){
 			return true
 		}
 
 	}
-})
+}])
 

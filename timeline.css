@@ -21,7 +21,7 @@ body{
 	margin-right: 30px;
 }
 
-textarea{
+input[type=text]{
 	font-size: 15px;
 	height:15px;
 	display: inline;
@@ -52,3 +52,15 @@ textarea{
 span{
 	font-size: 12px;
 }
+
+
+
+
+
+  .css-form input.ng-invalid.ng-dirty {
+    background-color: #FA787E;
+  }
+
+  .css-form input.ng-valid.ng-dirty {
+    background-color: #78FA89;
+  }

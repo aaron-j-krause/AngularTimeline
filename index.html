@@ -13,9 +13,9 @@
 	<form ng-submit = "timelineCtrl.addTimeline()">
 		<input type = "text" id="tform" ng-model = "timelineCtrl.timeline.name"/>
 		<input type = "submit" value = "Submit"/>
-		<input type = "button" value = "Priv"ng-click="timelineCtrl.priv()"/>
-		<input type = "button" value = "Pub"  ng-click="timelineCtrl.pub()"/>
-		<input type = "button" value = "log" ng-click="timelineCtrl.log()" />
+		Public: <input type = "checkbox" name = "Pub"  ng-model="timelineCtrl.vis.pub"/>
+		Private: <input type = "checkbox" name = "Priv" ng-model="timelineCtrl.vis.priv"/>
+		<!-- test button <input type = "button" value = "log" ng-click="timelineCtrl.log()" /> -->
 	</form>
 
 
@@ -29,9 +29,9 @@
 			</form>
 		</div>
 		<form name = "evform" id = "evform" ng-submit = "timelineCtrl.addEvent(line,name)">
-			<textarea id="evname" placeholder = "name" ng-model = "line.temp.name"></textarea>
-			<textarea id="evstart" placeholder ="start" ng-model="line.temp.start"></textarea>
-			<textarea id="evend" placeholder = "end" ng-model="line.temp.end"></textarea>
+			<input type="text" id="evname" placeholder = "name" ng-model = "line.temp.name">
+			<input type="text" placeholder ="start" ng-model="line.temp.start">
+			<input type="text" placeholder = "end" ng-model="line.temp.end">
 			<input type ="radio" value = "private" ng-model = "line.type" name = "p"/>
 			<input type ="radio" value = "public" ng-model= "line.type"name = "p"/>
 			<input type = "submit" value = "Submit"/>
