@@ -56,9 +56,9 @@ body{
 }
 
 input[type=text], input[type=number]{
-	font-size: 15px;
-	height:15px;
-	display: inline;
+  font-size: 15px;
+  height:15px;
+  display: inline;
 }
 #evform{
   width: 15%;
