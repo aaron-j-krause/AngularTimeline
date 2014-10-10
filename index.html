@@ -17,13 +17,13 @@
         <p>Add new lines and events using the form below.</p>
       </div>
 
-      <form id="add-line-form" ng-submit = "timelineCtrl.addTimeline()">
-        <input type = "text" id="tform" ng-model = "timelineCtrl.timeline.name"/>
-        <input type = "submit" value = "Submit" class="btn btn-default"/>
+      <form name="form" id="add-line-form" ng-submit = "timelineCtrl.addTimeline()">
+        <input name="name" type = "text" id="tform" ng-model = "timelineCtrl.timeline.name" required/>
+        <input name="submit" type = "submit" value = "Submit" class="btn btn-default"/>
         <div id="add-line-options">
-          Public: <input type = "checkbox" name = "Pub"  ng-model="timelineCtrl.vis.pub"/>
-          Private: <input type = "checkbox" name = "Priv" ng-model="timelineCtrl.vis.priv"/>
-          test button <input type = "button" value = "log" ng-click="timelineCtrl.log()" />
+          Public: <input name = "pub" type = "checkbox"   ng-model="timelineCtrl.vis.pub"/>
+          Private: <input name = "priv" type = "checkbox"  ng-model="timelineCtrl.vis.priv"/>
+          test button <input name="test"type = "button" value = "log" ng-click="timelineCtrl.log()" />
         </div> 
       </form>
 
@@ -36,14 +36,14 @@
           </form>
         </div>
 
-        <form name = "evform" id = "evform" ng-submit = "timelineCtrl.addEvent(line,name)">
-          <input type="text" id="evname" placeholder = "name" ng-model = "line.temp.name">
-          <input type="text" placeholder ="start" ng-model="line.temp.start">
-          <input type="text" placeholder = "end" ng-model="line.temp.end">
-          <input type ="radio" value = "private" ng-model = "line.type" name = "p"/>
-          <input type ="radio" value = "public" ng-model= "line.type"name = "p"/>
-          <input type = "submit" value = "Submit"/>
-        </form> 
+		<form name = "evform" id = "evform" ng-submit = "timelineCtrl.addEvent(line,name)">
+			<input name="evname" type="text" id="evname" placeholder = "name" ng-model = "line.temp.name" required>
+			<input name="evstart" type="number" placeholder ="start" ng-model="line.temp.start" required>
+			<input name="evend" type="number" placeholder = "end" ng-model="line.temp.end" required>
+			<input name="evtype" type ="radio" value = "private" ng-model = "line.type"/>
+			<input name="evtype" type ="radio" value = "public" ng-model= "line.type"/>
+			<input name="evsubmit" type = "submit" value = "Submit"/>
+		</form> 
 
       </div><!-- /.timeline -->
     </div><!-- /#controller-wrapper -->
