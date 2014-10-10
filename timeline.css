@@ -1,56 +1,159 @@
 body{
-	font-family: Helvetica;
+  background: #EAEAEA;
+  border-top: 10px solid #666;
+  color: #333;
+  font-family: Helvetica;
+  margin: 0;
+  padding: 0;
+}
+
+#wrapper {
+  margin: 0 auto;
+  max-width: 1140px;
+  padding: 40px 20px;
+}
+
+#hero {
+  margin: 0 0 40px 0;
+}
+
+#hero h1 {
+  font-size: 60px;
+  margin: 0 0 10px 0;
+}
+
+#hero p {
+  color: #999;
+  font-size: 24px;
+  font-weight: 100;
+  margin: 0;
+}
+
+#add-line-form {
+  border-radius: 20px;
+  background-color: #DDD;
+  margin-bottom: 40px;
+  padding: 10px 20px;
 }
 
 .timeline {
-	width: 100%;
-	font-size: 25px;
-	border-radius: 10px;
-	height: 90px;
-	margin-bottom: 20px;
-	position:relative;
+  width: 100%;
+  font-size: 25px;
+  border-radius: 10px;
+  height: 90px;
+  margin-bottom: 20px;
+  position:relative;
 }
 .timeline p{
-	margin-left: 25px;
-	float: left;
-	display: inline-block;
+  margin-left: 25px;
+  float: left;
+  display: inline-block;
 }
 .timeline form textarea, .timeline form input{
-	display: inline;
-	float: right;
-	margin-right: 30px;
+  display: inline;
+  float: right;
+  margin-right: 30px;
 }
 
 input[type=text]{
-	font-size: 15px;
-	height:15px;
-	display: inline;
+  font-size: 15px;
+  height:15px;
+  display: inline;
 }
 #evform{
-	width: 15%;
-	float:right;
-	margin-top: 5px;
-	display:inline;
+  width: 15%;
+  float:right;
+  margin-top: 5px;
+  display:inline;
 }
 
 
 #tform{
-	border: 1px dotted blue;
+  display: inline-block;
+  font-size: 18px;
+  border: 1px solid #CCC;
+  margin-right: 10px;
+  padding: 8px 10px;
 }
+
+#add-line-options {
+  float: right;
+}
+
+.btn {
+  display: inline-block;
+  margin: 0;
+  font-weight: normal;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  background-image: none;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  border-radius: 4px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  /* Not sure why need... */
+  position: relative;
+  top: -2px;
+}
+
+.btn:focus,
+.btn:active:focus,
+.btn.active:focus {
+  outline: thin dotted;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+.btn:hover,
+.btn:focus {
+  color: #333333;
+  text-decoration: none;
+}
+.btn:active,
+.btn.active {
+  outline: 0;
+  background-image: none;
+  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}
+
+.btn-default {
+  color: #333333;
+  background-color: #ffffff;
+  border-color: #cccccc;
+}
+.btn-default:hover,
+.btn-default:focus,
+.btn-default:active {
+  color: #333333;
+  background-color: #e6e6e6;
+  border-color: #adadad;
+}
+.btn-default:active,
+.btn-default.active {
+  background-image: none;
+}
+
 .ev{
-	position: absolute;
-	display: inline-block;
-	background-color: gray;
-	height: 95%;
-	border-radius: 15px;
-	margin-top: 2px;
+  position: absolute;
+  display: inline-block;
+  background-color: gray;
+  height: 95%;
+  border-radius: 15px;
+  margin-top: 2px;
 }
 .ev textarea, .ev form{
-	display: inline;
+  display: inline;
 
 }
 span{
-	font-size: 12px;
+  font-size: 12px;
 }
 
 
