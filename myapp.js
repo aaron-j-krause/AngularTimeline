@@ -42,7 +42,7 @@ app.service('TimelineService', function(){
   this.removeEvent = function(line, e){
     //console.log(eventname);
     //console.log(line);
-    delete line.ev[e.name]
+    delete line.ev[e.id];
     //console.log(line);
   }
 })
