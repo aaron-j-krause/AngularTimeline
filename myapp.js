@@ -44,36 +44,36 @@ app.service('TimelineService', function() {
 });
 
 app.controller('TimelineController', ['$scope', 'TimelineService', function($scope, TimelineService) {
-  this.bgcolor = [['#ff3030', '#CC2626'], ['#32CD32', '#238F23'], ['#00F5FF', '#00ABB2'], ['#ffd700', '#CCAC00']];
-  this.timeline = {};
-  this.vis = {
+  $scope.bgcolor = [['#ff3030', '#CC2626'], ['#32CD32', '#238F23'], ['#00F5FF', '#00ABB2'], ['#ffd700', '#CCAC00']];
+  $scope.timeline = {};
+  $scope.vis = {
     priv: true,
     pub: true
   };
 
-  this.lines = TimelineService.list();
-  this.addTimeline = function() {
-    this.timeline.color = this.bgcolor[Math.floor(Math.random() * 4)];
-    TimelineService.save(this.timeline);
-    this.timeline = {};
+  $scope.lines = TimelineService.list();
+  $scope.addTimeline = function() {
+    $scope.timeline.color = $scope.bgcolor[Math.floor(Math.random() * 4)];
+    TimelineService.save($scope.timeline);
+    $scope.timeline = {};
   };
 
-  this.addEvent = function(line, name, start, end) {
+  $scope.addEvent = function(line, name, start, end) {
     //console.log(line, name, start, end);
     TimelineService.addEvent(line);
     line.temp = {};
   };
 
-  this.deleteEvent = function(line, e) {
+  $scope.deleteEvent = function(line, e) {
     TimelineService.removeEvent(line, e);
   };
 
-  this.log = function() {
-    console.log(this.lines);
+  $scope.log = function() {
+    console.log($scope.lines);
   };
 
-  this.isVis = function(line) {
-    if ((line.type == 'public' && this.vis.pub) || (line.type == 'private' && this.vis.priv)) {
+  $scope.isVis = function(line) {
+    if ((line.type == 'public' && $scope.vis.pub) || (line.type == 'private' && $scope.vis.priv)) {
       return true;
     }
   };
