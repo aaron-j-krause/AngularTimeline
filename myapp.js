@@ -1,94 +1,80 @@
-var app = angular.module('myapp', ['ngRoute']);
-
-
+ var app = angular.module('myapp', ['ngRoute']);
 
 //Timeline and Event add and remove functions. Timeline master Object
-app.service('TimelineService', function(){
-	var id = 1;
-	var evid = 1;
-	var timelines = {};
+app.service('TimelineService', function() {
+  var timelines = {};
 
-	this.save = function(timeline){
-		timeline = {
-			type: "public",
-			ev: {},
-			id: id,
-			name: timeline.name,
-			color: timeline.color
-		}
-		timelines[timeline.id] = timeline;
-		id++;
-		//timelines[timeline.id].type = "public";
-		//timelines[timeline.id].ev = {};
-	}
-	this.list = function(){
-		return timelines;
-	}
+//timeline functions
+  this.save = (function() {
+    var lineId = 1;
+    return function(timeline) {
+      timeline = {
+        type: 'public',
+        ev: {},
+        id: lineId,
+        name: timeline.name,
+        color: timeline.color
+      };
+      timelines[timeline.id] = timeline;
+      lineId++;
+    };
+  }());
 
-	this.find = function(name){
-		if(name in timelines){
-			return timelines.name;
-		}
-	}
-	this.addEvent = function(timeline){
-		timelines[timeline.id].ev[evid] = {
-								name: timeline.temp.name,
-								start: timeline.temp.start,
-								end: timeline.temp.end,
-								id: evid
-							}
-	evid++;
-	}
-	this.removeEvent = function(line, e){
-		//console.log(eventname);
-		//console.log(line);
-		delete line.ev[e.name]
-		//console.log(line);
-	}
-})
+  this.list = function() {
+    return timelines;
+  };
 
-app.controller('TimelineController', ['$scope', 'TimelineService', function($scope, TimelineService){
-	this.bgcolor = [['#ff3030','#CC2626'],['#32CD32','#238F23'],['#00F5FF','#00ABB2'],['#ffd700','#CCAC00']];
-	this.timeline = {};
-	this.vis = {
-		priv: true,
-		pub: true
-	}
-	this.lines = TimelineService.list();
-	this.addTimeline = function(){
-		this.timeline.color = this.bgcolor[Math.floor(Math.random() * 4)];
-		TimelineService.save(this.timeline);
-		//console.log(this.timeline);
-		this.timeline = {};
-	}
-	this.findTimeline = function(name){
+//event functions
+  this.addEvent = (function() {
+    var evId = 1;
+    return function(timeline) {
+      timelines[timeline.id].ev[evId] = {
+        name: timeline.temp.name,
+        start: timeline.temp.start,
+        end: timeline.temp.end,
+        id: evId
+      };
+      evId++;
+    };
+  }());
 
-		console.log(TimelineService.find(name));
+  this.removeEvent = function(line, e) {
+    delete line.ev[e.id];
+  };
+});
 
-	}
-	this.addEvent = function(line, name, start, end){
-		console.log(line, name, start, end);
-		TimelineService.addEvent(line);
-		line.temp = {};
+app.controller('TimelineController', ['$scope', 'TimelineService', function($scope, TimelineService) {
+  $scope.bgcolor = [['#ff3030', '#CC2626'], ['#32CD32', '#238F23'], ['#00F5FF', '#00ABB2'], ['#ffd700', '#CCAC00']];
+  $scope.timeline = {};
+  $scope.vis = {
+    priv: true,
+    pub: true
+  };
 
-		
-	}
-	this.remove = function(line, e){
-		TimelineService.removeEvent(line, e);
-		console.log(line.ev[e.name]);
-		console.log(line.ev);
-	}
-	this.log = function(){
-		console.log(this.lines);
-		//console.log(this.vis);
-		//console.log($scope.timelineCtrl.vis);
-	}
+  $scope.lines = TimelineService.list();
+  $scope.addTimeline = function() {
+    $scope.timeline.color = $scope.bgcolor[Math.floor(Math.random() * 4)];
+    TimelineService.save($scope.timeline);
+    $scope.timeline = {};
+  };
 
-	this.isVis = function(line){
-		if((line.type == "public" && this.vis.pub)||(line.type == "private" && this.vis.priv)){
-			return true
-		}
+  $scope.addEvent = function(line, name, start, end) {
+    //console.log(line, name, start, end);
+    TimelineService.addEvent(line);
+    line.temp = {};
+  };
 
-	}
-}])
+  $scope.deleteEvent = function(line, e) {
+    TimelineService.removeEvent(line, e);
+  };
 
+  $scope.log = function() {
+    console.log($scope.lines);
+  };
+
+  $scope.isVis = function(line) {
+    if ((line.type == 'public' && $scope.vis.pub) || (line.type == 'private' && $scope.vis.priv)) {
+      return true;
+    }
+  };
+}]);
