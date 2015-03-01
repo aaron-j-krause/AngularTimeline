@@ -1,50 +1,59 @@
- var app = angular.module('myapp', ['ngRoute']);
+ var ngapp = angular.module('myapp', ['ngRoute']);
 
 //Timeline and Event add and remove functions. Timeline master Object
-app.service('TimelineService', function() {
-  var timelines = {};
+ngapp.service('TimelineService', ['$http', function($http) {
+
 
 //timeline functions
-  this.save = (function() {
-    var lineId = 1;
-    return function(timeline) {
-      timeline = {
-        type: 'public',
-        ev: {},
-        id: lineId,
-        name: timeline.name,
-        color: timeline.color
-      };
-      timelines[timeline.id] = timeline;
-      lineId++;
+  this.save = function(timeline) {
+    timeline = {
+      name: timeline.name,
+      ev: [],
+      type: 'public',
+      color: timeline.color
     };
-  }());
+    $http.post('/api/tl', timeline).success(function(data,status){
+      console.log('POST status:',status)
+    })
+  };
 
   this.list = function() {
     return timelines;
   };
 
+  this.deleteTimeline = function(timeline){
+    var url = 'api/tl/' + timeline._id;
+    console.log(url);
+    $http.delete('/api/tl/' + timeline._id)
+  }
+
 //event functions
-  this.addEvent = (function() {
-    var evId = 1;
-    return function(timeline) {
-      timelines[timeline.id].ev[evId] = {
-        name: timeline.temp.name,
-        start: timeline.temp.start,
-        end: timeline.temp.end,
-        id: evId
+  this.addEvent = function(timeline, event) { 
+      ev = {
+        timeline_id: timeline._id,
+        name: event.name,
+        start: event.start,
+        end: event.end
       };
-      evId++;
+      $http.post('/api/ev', ev).success(function(data){
+        console.log(data)
+        console.log(data.timeline_id)
+        console.log('event update')
+        //timelines[timeline._id].ev[data._id] = data
+      })
     };
-  }());
 
-  this.removeEvent = function(line, e) {
-    delete line.ev[e.id];
+  this.removeEvent = function(line, event) {
+    //delete line.ev[e._id];
+    $http.delete('/api/ev/' + event._id)
+      .success(function(data){
+        console.log(data)
+      })
+
   };
-});
+}]);
 
-app.controller('TimelineController', ['$scope', 'TimelineService', function($scope, TimelineService) {
-
+ngapp.controller('TimelineController', ['$scope', 'TimelineService', '$http', function($scope, TimelineService, $http) {
   $scope.bgcolor = [['#ff3030', '#CC2626'], ['#32CD32', '#238F23'], ['#00F5FF', '#00ABB2'], ['#ffd700', '#CCAC00']];
   $scope.timeline = {};
   $scope.vis = {
