@@ -12,7 +12,7 @@ ngapp.service('TimelineService', ['$http', function($http) {
       type: 'public',
       color: timeline.color
     };
-    $http.post('/api/tl', timeline).success(function(data,status){
+    $http.post('/api/timelines', timeline).success(function(data,status){
       console.log('POST status:',status)
     })
   };
@@ -22,9 +22,9 @@ ngapp.service('TimelineService', ['$http', function($http) {
   };
 
   this.deleteTimeline = function(timeline){
-    var url = 'api/tl/' + timeline._id;
+    var url = 'api/timelines/' + timeline._id;
     console.log(url);
-    $http.delete('/api/tl/' + timeline._id)
+    $http.delete('/api/timelines/' + timeline._id)
   }
 
 //event functions
@@ -63,7 +63,7 @@ ngapp.controller('TimelineController', ['$scope', 'TimelineService', '$http', fu
 
   $scope.setList = function(){
     var timelines = {};
-    $http.get('/api/tl').success(function(data,status,headers,config){
+    $http.get('/api/timelines').success(function(data,status,headers,config){
       data.forEach(function(item){
         if(item._id){
           timelines[item._id] = item;
@@ -82,8 +82,8 @@ ngapp.controller('TimelineController', ['$scope', 'TimelineService', '$http', fu
   
   
   $scope.addTimeline = function(timeline) {
+    console.log(timeline);
     timeline.color = $scope.bgcolor[Math.floor(Math.random() * 4)];
-    //console.log(timeline);
     TimelineService.save(timeline);
     $scope.timeline = {};
     $scope.lines = $scope.setList();
@@ -97,7 +97,7 @@ ngapp.controller('TimelineController', ['$scope', 'TimelineService', '$http', fu
 
   $scope.getEvents = function(line){
     var events = {};
-    $http.get('api/tl').success(function(data,status){
+    $http.get('api/timelines').success(function(data,status){
       data.forEach(function(item){
         if(item._id == line._id){
           events[item._id] = item;

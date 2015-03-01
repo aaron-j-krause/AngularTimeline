@@ -16,7 +16,7 @@
     <p>Add new lines and events using the form below.</p>
     </div>
 
-    <form name="form" id="add-line-form" ng-submit = "addTimeline()">
+    <form name="form" id="add-line-form" ng-submit = "addTimeline(timeline)">
     <input name="name" type = "text" id="tform" ng-model = "timeline.name" required/>
     <input name="submit" type = "submit" value = "Submit" class="btn btn-default"/>
     <div id="add-line-options">
