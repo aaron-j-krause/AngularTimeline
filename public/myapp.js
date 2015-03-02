@@ -23,7 +23,6 @@ ngapp.service('TimelineService', ['$http', function($http) {
 
   this.deleteTimeline = function(timeline){
     var url = 'api/timelines/' + timeline._id;
-    console.log(url);
     $http.delete('/api/timelines/' + timeline._id)
   }
 
