@@ -1,9 +1,9 @@
 <!doctype html>
 <html>
 <head>
-  <link rel="stylesheet" type="text/css" href="timeline.css"></link>
-  <script src="./node_modules/angular/angular.js"></script>
-  <script src="./node_modules/angular-route/angular-route.js"></script>
+  <link rel="stylesheet" type="text/css" href="./css/timeline.css"></link>
+  <script src="./libs/angular.min.js"></script>
+  <script src="./libs/angular-route.min.js"></script>
   <script type="text/javascript" src = "myapp.js"></script>
 </head>
 
@@ -16,7 +16,7 @@
     <p>Add new lines and events using the form below.</p>
     </div>
 
-    <form name="form" id="add-line-form" ng-submit = "addTimeline()">
+    <form name="form" id="add-line-form" ng-submit = "addTimeline(timeline)">
     <input name="name" type = "text" id="tform" ng-model = "timeline.name" required/>
     <input name="submit" type = "submit" value = "Submit" class="btn btn-default"/>
     <div id="add-line-options">
