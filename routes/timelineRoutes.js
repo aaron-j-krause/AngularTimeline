@@ -1,10 +1,12 @@
 var Timeline = require('../models/timelineModel');
+var Event = require('../models/eventModel')
 
 module.exports = function(router) {
 
   router.get('/', function(req, res){
-    Timeline.find({}, function(err, timelines) {
+    Timeline.find({}).populate('ev').exec(function(err, timelines) {
       if (err) return res.status(500).send('could not GET timelines')
+      console.log(timelines);
       res.send(timelines);
     });
   });

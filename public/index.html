@@ -35,12 +35,12 @@
       </form>
     </div>
 
-    <form name = "evform" id = "evform" ng-submit = "addEvent(line,name)">
-      <input name="evname" type="text" id="evname" placeholder = "name" ng-model = "line.temp.name" required>
-      <input name="evstart" type="number" placeholder ="start" ng-model="line.temp.start" required>
-      <input name="evend" type="number" placeholder = "end" ng-model="line.temp.end" required>
-      <input name="evtype" type ="radio" value = "private" ng-model = "line.type"/>
-      <input name="evtype" type ="radio" value = "public" ng-model= "line.type"/>
+    <form name = "evform" id = "evform" ng-submit = "addEvent(line._id, tempEvent)">
+      <input name="evname" type="text" id="evname" placeholder = "name" ng-model = "tempEvent.name" required>
+      <input name="evstart" type="number" placeholder ="start" ng-model="tempEvent.start" required>
+      <input name="evend" type="number" placeholder = "end" ng-model="tempEvent.end" required>
+      <input name="lineType" type ="radio" value = "private" ng-model = "line.type"/>
+      <input name="lineType" type ="radio" value = "public" ng-model= "line.type"/>
       <input name="deleteline" type="button" value = "delete" ng-click="deleteTimeline(line)">
       <input name="evsubmit" type = "submit" value = "Submit"/>
     </form> 

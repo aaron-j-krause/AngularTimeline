@@ -27,16 +27,14 @@ ngapp.service('TimelineService', ['$http', function($http) {
   }
 
 //event functions
-  this.addEvent = function(timeline, event) { 
+  this.addEvent = function(timelineId, event) { 
       ev = {
-        timeline_id: timeline._id,
+        timelineId: timelineId,
         name: event.name,
         start: event.start,
         end: event.end
       };
-      $http.post('/api/ev', ev).success(function(data){
-        console.log(data)
-        console.log(data.timeline_id)
+      $http.post('/api/events/new_event', ev).success(function(data){
         console.log('event update')
         //timelines[timeline._id].ev[data._id] = data
       })
@@ -88,8 +86,9 @@ ngapp.controller('TimelineController', ['$scope', 'TimelineService', '$http', fu
     $scope.lines = $scope.setList();
   };
 
-  $scope.addEvent = function(line, event) {
-    TimelineService.addEvent(line, event);
+  $scope.addEvent = function(lineId, event) {
+    console.log(lineId, event)
+    TimelineService.addEvent(lineId, event);
     $scope.event = {};
     $scope.lines = $scope.setList();
   };
