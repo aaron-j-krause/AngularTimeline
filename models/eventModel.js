@@ -9,4 +9,13 @@ var eventSchema = new Schema ({
   timelineId: Schema.Types.ObjectId
 });
 
+eventSchema.pre('remove', function(next) {
+    this.model('Timeline').update(
+        {ev: this._id},
+        {$pull: {ev: this._id}},
+        {multi: true},
+        next
+    );
+})
+
 module.exports = mongoose.model('Event', eventSchema);

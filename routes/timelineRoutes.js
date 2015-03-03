@@ -3,7 +3,7 @@ var Event = require('../models/eventModel')
 
 module.exports = function(router) {
 
-  router.get('/', function(req, res){
+  router.get('/', function(req, res) {
     Timeline.find({}).populate('ev').exec(function(err, timelines) {
       if (err) return res.status(500).send('could not GET timelines')
       console.log(timelines);
@@ -13,16 +13,19 @@ module.exports = function(router) {
 
   router.post('/', function(req, res) {
     var newTimeline = new Timeline(req.body);
-    newTimeline.save(function(err, timeline){
+    newTimeline.save(function(err, timeline) {
       if (err) return console.log(err);
-      res.send('timeline saved');
+      res.json(timeline);
     });
   });
 
   router.delete('/:id', function(req, res) {
     Timeline.findByIdAndRemove(req.params.id, function(err, timeline) {
       if (err) return console.log(err);
-      res.json({msg: 'timeline deleted'})
+      Event.find({timelineId: timeline._id}).remove(function(err, events) {
+
+        res.json({msg: 'timeline deleted'})
+      })
     });
   });
-}
+};
