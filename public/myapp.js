@@ -3,8 +3,18 @@
 //Timeline and Event add and remove functions. Timeline master Object
 ngapp.service('TimelineService', ['$http', function($http) {
 
-
 //timeline functions
+
+  this.timelines = (function() {
+    var timelines = {};
+    $http.get('/api/timelines').success(function(data) {
+      data.forEach(function(item) {
+        timelines[item._id] = item;
+      })
+    });
+    return timelines;
+  }());
+
   this.save = function(timeline) {
     timeline = {
       name: timeline.name,
@@ -12,45 +22,41 @@ ngapp.service('TimelineService', ['$http', function($http) {
       type: 'public',
       color: timeline.color
     };
-    $http.post('/api/timelines', timeline).success(function(data,status){
-      console.log('POST status:',status)
-    })
+    $http.post('/api/timelines', timeline).success((function(data) {
+      this.timelines[data._id] = data
+    }).bind(this))
   };
 
-  this.list = function() {
-    return timelines;
-  };
 
-  this.deleteTimeline = function(timeline){
+  this.deleteTimeline = function(timeline) {
     var url = 'api/timelines/' + timeline._id;
-    console.log(url);
     $http.delete('/api/timelines/' + timeline._id)
+      .success((function(data) {
+        delete this.timelines[timeline._id]
+      }).bind(this))
   }
 
 //event functions
-  this.addEvent = function(timeline, event) { 
+  this.addEvent = function(timelineId, event) { 
       ev = {
-        timeline_id: timeline._id,
+        timelineId: timelineId,
         name: event.name,
         start: event.start,
         end: event.end
       };
-      $http.post('/api/ev', ev).success(function(data){
-        console.log(data)
-        console.log(data.timeline_id)
-        console.log('event update')
-        //timelines[timeline._id].ev[data._id] = data
-      })
+      $http.post('/api/events/new_event', ev).success((function(data) {
+        this.timelines[data.timelineId].ev.push(data);
+      }).bind(this))
     };
 
-  this.removeEvent = function(line, event) {
-    //delete line.ev[e._id];
-    $http.delete('/api/ev/' + event._id)
-      .success(function(data){
-        console.log(data)
+  this.removeEvent = function(event, line) {
+    $http.delete('/api/events/' + event._id)
+      .success(function(data) {
+        line.ev = data.events;
       })
 
   };
+
 }]);
 
 ngapp.controller('TimelineController', ['$scope', 'TimelineService', '$http', function($scope, TimelineService, $http) {
@@ -61,54 +67,26 @@ ngapp.controller('TimelineController', ['$scope', 'TimelineService', '$http', fu
     pub: true
   };
 
-  $scope.setList = function(){
-    var timelines = {};
-    $http.get('/api/timelines').success(function(data,status,headers,config){
-      data.forEach(function(item){
-        if(item._id){
-          timelines[item._id] = item;
-        }
-      })
-    });
-    return timelines;
-  };
+  $scope.lines = TimelineService.timelines;
 
-  $scope.lines = $scope.setList();
-
-  $scope.deleteTimeline = function(timeline){
+  $scope.deleteTimeline = function(timeline) {
     TimelineService.deleteTimeline(timeline);
-    $scope.lines = $scope.setList();
+
   }
   
-  
   $scope.addTimeline = function(timeline) {
-    console.log(timeline);
     timeline.color = $scope.bgcolor[Math.floor(Math.random() * 4)];
     TimelineService.save(timeline);
     $scope.timeline = {};
-    $scope.lines = $scope.setList();
   };
 
-  $scope.addEvent = function(line, event) {
-    TimelineService.addEvent(line, event);
-    $scope.event = {};
-    $scope.lines = $scope.setList();
+  $scope.addEvent = function(event, line) {
+    TimelineService.addEvent(line._id, event);
+    line.tempEvent = {};
   };
 
-  $scope.getEvents = function(line){
-    var events = {};
-    $http.get('api/timelines').success(function(data,status){
-      data.forEach(function(item){
-        if(item._id == line._id){
-          events[item._id] = item;
-        }
-      })
-    })
-    return events;
-  }
-
-  $scope.deleteEvent = function(line, event) {
-    TimelineService.removeEvent(line, event);
+  $scope.deleteEvent = function(event, line) {
+    TimelineService.removeEvent(event, line);
   };
 
   $scope.log = function() {
