@@ -1,4 +1,7 @@
- var ngapp = angular.module('myapp', ['ngRoute']);
+require('angular/angular')
+
+
+ var ngapp = angular.module('myapp', []);
 
 //Timeline and Event add and remove functions. Timeline master Object
 ngapp.service('TimelineService', ['$http', function($http) {
