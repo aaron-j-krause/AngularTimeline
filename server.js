@@ -24,6 +24,6 @@ app.use('/api/events', eventRouter);
 //db
 mongoose.connect('mongodb://localhost/dev_db');
 
-app.listen(3000, function(){
-  console.log('server listening on port 3000')
-})
+app.listen(3000, function() {
+  console.log('server listening on port 3000');
+});

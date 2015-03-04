@@ -12,7 +12,7 @@ module.exports = function(grunt) {
       options:{
         jshintrc:true
       },
-    files:['*.js', 'lib/**/*.js', 'test/**/*.js']
+    files:['*.js', 'app/**/*.js', 'lib/**/*.js', 'test/**/*.js']
     },
     jscs: {
       all: {
@@ -20,7 +20,7 @@ module.exports = function(grunt) {
           config:'.jscsrc'
         },
         files: {
-          src: ['*.js', 'lib/**/*.js', 'test/**/*.js']
+          src: ['*.js', 'app/**/*.js', 'lib/**/*.js', 'test/**/*.js']
         }
       }
     },
@@ -54,6 +54,6 @@ module.exports = function(grunt) {
       tasks:['clean', 'browserify', 'copy']
     }
   });
-  grunt.registerTask('build', ['clean', 'browserify', 'copy'])
+  grunt.registerTask('build', ['clean', 'browserify', 'copy']);
 
-}
+};
