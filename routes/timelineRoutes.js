@@ -14,7 +14,7 @@ module.exports = function(router) {
   router.post('/', function(req, res) {
     var newTimeline = new Timeline(req.body);
     newTimeline.save(function(err, timeline) {
-      if (err) return console.log(err);
+      if (err) return res.status(500).send('could not create timeline');
       res.json(timeline);
     });
   });
