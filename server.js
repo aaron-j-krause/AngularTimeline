@@ -7,7 +7,7 @@ var assignTimelineRoutes = require('./routes/timelineRoutes');
 var assignEventRoutes = require('./routes/eventRoutes');
 
 //middleware
-app.use(morgan('dev'));
+if (!process.env.TEST_MODE) app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/build'));
 
