@@ -23,6 +23,7 @@
     </div> 
     </form>
 
+    <div data-ng-view></div>
     <div class="timeline" ng-repeat="line in lines |orderBy: line.type" style="background-color: {{line.color[0]}}" data-name="{{line.name}}" ng-show="isVis(line)" ng-cloak>
     <p>{{line.name}}<br/><span>{{line.type}}</span></p>
     <div class="ev" style="left:{{event.start * 5}}%; width:{{(event.end - event.start) * 5}}%; background-color:{{line.color[1]}}" ng-repeat="event in line.ev" >

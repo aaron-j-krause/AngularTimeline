@@ -1,7 +1,7 @@
 require('angular/angular');
 require('angular-route');
 
-var app = angular.module('timelineApp', []);
+var app = angular.module('timelineApp', ['ngRoute']);
 
 //services
 require('./timelines/services/timelineService')(app);
@@ -9,13 +9,16 @@ require('./timelines/services/timelineService')(app);
 //controllers
 require('./timelines/controllers/timelineController')(app);
 
-timelineApp.config(['$routeProvider', function($routeProvider) {
+app.config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/home', {
-    templateUrl: 'index.html'
+    templateUrl: 'barf.html'
   })
-  .when('/', function() {
+  .when('/', {
     redirectTo: '/home'
   })
+  .when('/signin', {
+    templateUrl: './templates/sign-in.html',
+    controller: 'timelineController'
+  })
 }])
-
 
