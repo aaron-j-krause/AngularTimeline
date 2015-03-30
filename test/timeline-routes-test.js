@@ -1,3 +1,6 @@
+'use strict';
+
+process.env.TEST_MODE = true; //disables morgan for testing
 process.env.MONGO_URI = 'mongodb://localhost/test_db';
 require('../server');
 

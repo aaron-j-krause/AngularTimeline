@@ -9,6 +9,7 @@ var eventSchema = new Schema ({
   timelineId: Schema.Types.ObjectId
 });
 
+//removes timelines child events from db on delete
 eventSchema.pre('remove', function(next) {
     this.model('Timeline').update(
         {ev: this._id},
