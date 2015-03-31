@@ -17,5 +17,5 @@ timelineApp.config(['$routeProvider', function($routeProvider) {
   })
   .when('/signin', {
     templateUrl: 'templates/sign-in.html'
-  })
+  });
 }]);

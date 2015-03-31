@@ -51,6 +51,7 @@ module.exports = function(grunt) {
       tasks:['clean', 'browserify', 'copy']
     }
   });
+  grunt.registerTask('default', ['jshint', 'jscs']);
   grunt.registerTask('build', ['clean', 'browserify', 'copy']);
 
 };

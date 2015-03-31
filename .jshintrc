@@ -5,5 +5,8 @@
     "it": true,
     "before": true,
     "after": true
-  }
+  },
+  "predef": [
+    "beforeEach"
+  ]
 }
