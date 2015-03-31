@@ -8,6 +8,9 @@ require('./timelines/services/timelineService')(timelineApp);
 //controllers
 require('./timelines/controllers/timelineController')(timelineApp);
 
+//directives
+require('./timelines/directives/timeline-directive')(timelineApp);
+
 timelineApp.config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/home', {
     templateUrl: 'templates/home.html'

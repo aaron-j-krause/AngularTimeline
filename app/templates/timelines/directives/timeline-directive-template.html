@@ -1,0 +1,18 @@
+<div class="timeline" data-ng-repeat="line in lines |orderBy: line.type" style="background-color: {{line.color[0]}}" data-name="{{line.name}}" data-ng-show="isVis(line)" data-ng-cloak>
+  <p>{{line.name}}<br/><span>{{line.type}}</span></p>
+  <div class="ev" style="left:{{event.start * 5}}%; width:{{(event.end - event.start) * 5}}%; background-color:{{line.color[1]}}" data-ng-repeat="event in line.ev" >
+    <p>{{event.name}}</p>
+    <form data-ng-submit="deleteEvent(event, line)">
+      <input type = "submit" value="delete">
+    </form>
+  </div>
+  <form name = "evform" id = "evform" data-ng-submit = "addEvent(line.tempEvent, line)">
+    <input name="evname" type="text" id="evname" placeholder = "name" data-ng-model = "line.tempEvent.name" required>
+    <input name="evstart" type="number" placeholder ="start" data-ng-model="line.tempEvent.start" required>
+    <input name="evend" type="number" placeholder = "end" data-ng-model="line.tempEvent.end" required>
+    <input name="lineType" type ="radio" value = "private" data-ng-model = "line.type"/>
+    <input name="lineType" type ="radio" value = "public" data-ng-model= "line.type"/>
+    <input name="deleteline" type="button" value = "delete" data-ng-click="deleteTimeline(line)">
+    <input name="evsubmit" type = "submit" value = "Submit"/>
+  </form> 
+</div>
