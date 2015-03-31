@@ -44,9 +44,6 @@ module.exports = function(grunt) {
       dev:{
         src: ['app/js/**/*.js'],
         dest: 'build/bundle.js'
-      },
-      options:{
-        transform:['debowerify']
       }
     },
     watch:{
@@ -54,6 +51,7 @@ module.exports = function(grunt) {
       tasks:['clean', 'browserify', 'copy']
     }
   });
+  grunt.registerTask('default', ['jshint', 'jscs']);
   grunt.registerTask('build', ['clean', 'browserify', 'copy']);
 
 };
