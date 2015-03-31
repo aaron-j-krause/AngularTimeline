@@ -44,9 +44,6 @@ module.exports = function(grunt) {
       dev:{
         src: ['app/js/**/*.js'],
         dest: 'build/bundle.js'
-      },
-      options:{
-        transform:['debowerify']
       }
     },
     watch:{
