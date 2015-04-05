@@ -1,7 +1,7 @@
 
 module.exports = function(app) {
-  app.controller('timelineController', ['$scope', 'TimelineService', '$http',
-      function($scope, TimelineService, $http) {
+  app.controller('timelineController', ['$scope', 'TimelineService', '$http', '$location',
+      function($scope, TimelineService, $http, $location) {
     $scope.bgcolor = [['#ff3030', '#CC2626'], ['#32CD32', '#238F23'],
       ['#00F5FF', '#00ABB2'], ['#ffd700', '#CCAC00']];
     $scope.timeline = {};
@@ -42,5 +42,9 @@ module.exports = function(app) {
         return true;
       }
     };
+
+    $scope.toHome = function() {
+      $location.path('/home');
+    }
   }]);
 };
